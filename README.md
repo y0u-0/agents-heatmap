@@ -32,11 +32,6 @@ Available provider flags: `--claude`, `--codex`, `--cursor`, `--opencode`
 
 ## Output
 
-| File                        | Contents                                  |
-| --------------------------- | ----------------------------------------- |
-| `agents-heatmap.png`          | Per-agent sections (one heatmap per tool)  |
-| `agents-heatmap-combined.png` | Single merged heatmap across all agents    |
-
 ### Combined
 
 ![Combined heatmap](assets/example-combined.png)
@@ -45,23 +40,9 @@ Available provider flags: `--claude`, `--codex`, `--cursor`, `--opencode`
 
 ![Per-agent heatmaps](assets/example-separate.png)
 
-Each section shows:
-
-- **Header** — tool name, input tokens, output tokens, total tokens
-- **Heatmap** — GitHub-style year grid with quartile-based color levels
-- **Footer** — most used model, last 30 days activity, longest streak, current streak
-
-Images render at 4x resolution.
-
 ## Supported Agents
 
 - **Claude Code** — reads from `~/.claude/`
 - **Codex CLI** — reads from `~/.codex/`
 - **Cursor** — auto-fetched from Cursor's dashboard API
 - **OpenCode** — reads from `~/.local/share/opencode/opencode.db`
-
-All sources are auto-detected. [Bun](https://bun.sh) runtime required.
-
-## License
-
-MIT
