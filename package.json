@@ -1,0 +1,39 @@
+{
+  "name": "agents-heatmap",
+  "version": "1.0.0",
+  "description": "GitHub-style activity heatmaps for AI coding agent token usage",
+  "module": "index.ts",
+  "type": "module",
+  "bin": {
+    "agents-heatmap": "index.ts"
+  },
+  "scripts": {
+    "generate": "bun run index.ts",
+    "generate:combined": "bun run index.ts --combined",
+    "generate:separate": "bun run index.ts --separate"
+  },
+  "keywords": [
+    "claude-code",
+    "codex",
+    "cursor",
+    "opencode",
+    "usage",
+    "heatmap",
+    "tokens",
+    "ai-agents"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/y0u-0/agents-heatmap"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@napi-rs/canvas": "^0.1.96"
+  }
+}
