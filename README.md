@@ -6,6 +6,10 @@ GitHub-style activity heatmaps for AI coding agent token usage. Auto-detects **C
 
 ```bash
 bunx agents-heatmap
+# or
+npx agents-heatmap
+# or
+pnpm dlx agents-heatmap
 ```
 
 Generates two PNG heatmap images in the current directory.
