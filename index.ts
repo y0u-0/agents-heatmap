@@ -4,6 +4,7 @@ import { renderImage } from "./src/render";
 import { toLocalDateStr, buildAgentData } from "./src/types";
 import type { AgentData, Provider } from "./src/types";
 import { writeFileSync } from "fs";
+import { resolve } from "path";
 
 const args = process.argv.slice(2);
 const flags = new Set(args.filter((a) => a.startsWith("--")));
@@ -65,12 +66,12 @@ if (mode === "combined" || mode === "all") {
   const png = renderImage([combined], today);
   const outPath = "agents-heatmap-combined.png";
   writeFileSync(outPath, png);
-  console.log(`Generated ${outPath} (${agents.length} sources merged, ${(png.length / 1024).toFixed(0)}KB)`);
+  console.log(`Generated ${resolve(outPath)} (${agents.length} sources merged, ${(png.length / 1024).toFixed(0)}KB)`);
 }
 
 if (mode === "separate" || mode === "all") {
   const png = renderImage(agents, today);
   const outPath = "agents-heatmap.png";
   writeFileSync(outPath, png);
-  console.log(`Generated ${outPath} (${agents.length} agents, ${(png.length / 1024).toFixed(0)}KB)`);
+  console.log(`Generated ${resolve(outPath)} (${agents.length} agents, ${(png.length / 1024).toFixed(0)}KB)`);
 }
