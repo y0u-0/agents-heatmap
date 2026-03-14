@@ -1,6 +1,6 @@
 {
   "name": "agents-heatmap",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "GitHub-style activity heatmaps for AI coding agent token usage",
   "module": "index.ts",
   "type": "module",
