@@ -26,10 +26,6 @@ bunx agents-heatmap --claude --codex   # only Claude Code and Codex
 
 Available provider flags: `--claude`, `--codex`, `--cursor`, `--opencode`
 
-### Single provider
-
-![Claude only](assets/example-claude.png)
-
 ## Output
 
 ### Combined
@@ -39,6 +35,10 @@ Available provider flags: `--claude`, `--codex`, `--cursor`, `--opencode`
 ### Per-agent
 
 ![Per-agent heatmaps](assets/example-separate.png)
+
+### Single provider
+
+![Claude only](assets/example-claude.png)
 
 ## Supported Agents
 
