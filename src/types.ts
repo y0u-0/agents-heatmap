@@ -29,6 +29,7 @@ export interface AgentData {
   totalTokens: number;
   byDay: DayTokens[];
   byModel: ModelTokens[];
+  entries: TokenEntry[];
   dateRange: { from: string; to: string };
 }
 
@@ -76,6 +77,7 @@ export function buildAgentData(source: string, entries: TokenEntry[]): AgentData
     totalTokens: byDay.reduce((s, d) => s + d.total, 0),
     byDay,
     byModel,
+    entries,
     dateRange: { from: byDay[0]?.date ?? "", to: byDay[byDay.length - 1]?.date ?? "" },
   };
 }

@@ -1,5 +1,5 @@
 import { createCanvas, type SKRSContext2D } from "@napi-rs/canvas";
-import type { AgentData } from "./types";
+import type { AgentData, ModelTokens } from "./types";
 import { toLocalDateStr } from "./types";
 
 const SECTION_PAD = 50;
@@ -266,7 +266,19 @@ function renderSection(
   const thirtyDaysAgo = toLocalDateStr(addDays(todayDate, -30));
   const recentDays = agent.byDay.filter((d) => d.date >= thirtyDaysAgo);
   const recentTokens = recentDays.reduce((s, d) => s + d.total, 0);
-  const recentActiveDays = recentDays.filter((d) => d.total > 0).length;
+
+
+  const recentModelMap = new Map<string, ModelTokens>();
+  for (const e of agent.entries) {
+    if (e.date < thirtyDaysAgo) continue;
+    const total = e.input + e.output;
+    const m = recentModelMap.get(e.model) ?? { model: e.model, input: 0, output: 0, total: 0 };
+    m.input += e.input;
+    m.output += e.output;
+    m.total += total;
+    recentModelMap.set(e.model, m);
+  }
+  const recentTopModel = [...recentModelMap.values()].sort((a, b) => b.total - a.total)[0];
 
   const footerItems = [
     {
@@ -276,7 +288,7 @@ function renderSection(
     },
     {
       label: "LAST 30 DAYS",
-      value: recentActiveDays > 0 ? `${recentActiveDays} days active` : "—",
+      value: recentTopModel ? truncate(recentTopModel.model, 22) : "—",
       sub: recentTokens > 0 ? `(${formatTokens(recentTokens)})` : "",
     },
     {
