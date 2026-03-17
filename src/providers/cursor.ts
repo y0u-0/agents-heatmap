@@ -23,9 +23,20 @@ function extractToken(): { token: string; sub: string } | null {
   const dbPath = findStateDb();
   if (!dbPath) return null;
 
-  const db = new Database(dbPath, { readonly: true });
-  const row = db.query("SELECT value FROM ItemTable WHERE key = 'cursorAuth/accessToken' LIMIT 1").get() as { value: string } | null;
-  db.close();
+  let row: { value: string } | null = null;
+  try {
+    const db = new Database(dbPath, { readonly: true });
+    row = db.query("SELECT value FROM ItemTable WHERE key = 'cursorAuth/accessToken' LIMIT 1").get() as { value: string } | null;
+    db.close();
+  } catch {
+    try {
+      const result = Bun.spawnSync(["sqlite3", dbPath, "SELECT value FROM ItemTable WHERE key = 'cursorAuth/accessToken' LIMIT 1"]);
+      const value = result.stdout.toString().trim();
+      if (value) row = { value };
+    } catch {
+      return null;
+    }
+  }
 
   if (!row?.value) return null;
 

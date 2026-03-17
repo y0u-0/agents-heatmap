@@ -40,23 +40,9 @@ if (agents.length === 0) {
 }
 
 function combineAgents(sources: AgentData[]): AgentData {
-  const dayEntries = sources.flatMap((s) =>
-    s.byDay.map((d) => ({ date: d.date, model: "_all_", input: d.input, output: d.output }))
-  );
+  const allEntries = sources.flatMap((s) => s.entries);
 
-  const base = buildAgentData("All Agents", dayEntries)!;
-
-  const modelMap = new Map<string, { model: string; input: number; output: number; total: number }>();
-  for (const s of sources) {
-    for (const m of s.byModel) {
-      const existing = modelMap.get(m.model) ?? { model: m.model, input: 0, output: 0, total: 0 };
-      existing.input += m.input;
-      existing.output += m.output;
-      existing.total += m.total;
-      modelMap.set(m.model, existing);
-    }
-  }
-  base.byModel = [...modelMap.values()].sort((a, b) => b.total - a.total);
+  const base = buildAgentData("All Agents", allEntries)!;
 
   return base;
 }
